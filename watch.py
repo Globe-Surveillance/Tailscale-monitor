@@ -18,8 +18,8 @@ WATCH = {
     "synology-nas",
 }
 
-OFFLINE_AFTER = 360        # يعتبر الجهاز Offline بعد 6 دقائق
-REMINDER_EVERY = 3600      # تذكير كل ساعة
+OFFLINE_AFTER = 60        # 
+REMINDER_EVERY = 3600      #
 
 STATE = "state.json"
 
@@ -75,9 +75,6 @@ now = datetime.now(timezone.utc)
 
 
 def is_down(device):
-    if "connectedToControl" in device:
-        return not device["connectedToControl"]
-
     last_seen = device.get("lastSeen")
 
     if not last_seen:
@@ -88,7 +85,6 @@ def is_down(device):
     )
 
     return (now - last_seen).total_seconds() > OFFLINE_AFTER
-
 
 devices = get_devices()
 
